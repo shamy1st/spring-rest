@@ -98,4 +98,11 @@ DELETE | /api/customers/{customerId} | delete an existing customer
             }	
         }
 
+### Exception Handling
+
+
+
+
+
+
 
