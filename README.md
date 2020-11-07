@@ -100,9 +100,117 @@ DELETE | /api/customers/{customerId} | delete an existing customer
 
 ### Exception Handling
 
+1. **create custom error response**
+
+        public class CustomerErrorResponse {
+
+            private int status;
+            private String message;
+            private long timeStamp;
+            
+            public CustomerErrorResponse() {
+                
+            }
+
+            public CustomerErrorResponse(int status, String message, long timeStamp) {
+                this.status = status;
+                this.message = message;
+                this.timeStamp = timeStamp;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public String getMessage() {
+                return message;
+            }
+
+            public void setMessage(String message) {
+                this.message = message;
+            }
+
+            public long getTimeStamp() {
+                return timeStamp;
+            }
+
+            public void setTimeStamp(long timeStamp) {
+                this.timeStamp = timeStamp;
+            }
+        }
+
+2. **create custom Student Exception**
+
+        public class CustomerNotFoundException extends RuntimeException {
+
+            public CustomerNotFoundException() {
+            }
+
+            public CustomerNotFoundException(String message) {
+                super(message);
+            }
+
+            public CustomerNotFoundException(Throwable cause) {
+                super(cause);
+            }
+
+            public CustomerNotFoundException(String message, Throwable cause) {
+                super(message, cause);
+            }
+
+            public CustomerNotFoundException(String message, Throwable cause, boolean enableSuppression,
+                    boolean writableStackTrace) {
+                super(message, cause, enableSuppression, writableStackTrace);
+            }
+
+        }
+
+3. **update REST service to throw exception** (AOP implementation)
 
 
+        @ControllerAdvice
+        public class CustomerRestExceptionHandler {
 
+            // Add an exception handler for CustomerNotFoundException
+            
+            @ExceptionHandler
+            public ResponseEntity<CustomerErrorResponse> handleException(CustomerNotFoundException exc) {
+                
+                // create CustomerErrorResponse
+                
+                CustomerErrorResponse error = new CustomerErrorResponse(
+                                                    HttpStatus.NOT_FOUND.value(),
+                                                    exc.getMessage(),
+                                                    System.currentTimeMillis());
+                
+                // return ResponseEntity
+                
+                return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+            }
+            
+            
+            // Add another exception handler ... to catch any exception (catch all)
+
+            @ExceptionHandler
+            public ResponseEntity<CustomerErrorResponse> handleException(Exception exc) {
+                
+                // create CustomerErrorResponse
+                
+                CustomerErrorResponse error = new CustomerErrorResponse(
+                                                    HttpStatus.BAD_REQUEST.value(),
+                                                    exc.getMessage(),
+                                                    System.currentTimeMillis());
+                
+                // return ResponseEntity
+                
+                return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+            }
+            
+        }
 
 
 
