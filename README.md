@@ -218,6 +218,46 @@ DELETE | /api/customers/{customerId} | delete an existing customer
 
 ![](https://github.com/shamy1st/spring-rest/blob/main/images/project-creation.png)
 
+        application.properties:
+            spring.datasource.url=jdbc:h2:mem:testdb
+            spring.datasource.driverClassName=org.h2.Driver
+            spring.datasource.username=sa
+            spring.datasource.password=password
+            spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+            spring.jpa.show-sql=true
+            spring.h2.console.enable=true
+
+            spring.data.rest.basePath=/api
+            spring.data.rest.default-page-size=3
+
+        data.sql
+            INSERT INTO Users (id, name) VALUES (1, 'Ahmed');
+            INSERT INTO Users (id, name) VALUES (2, 'Mohamed');
+            INSERT INTO Users (id, name) VALUES (3, 'Abdalla');
+            INSERT INTO Users (id, name) VALUES (4, 'Hassan');
+            INSERT INTO Users (id, name) VALUES (5, 'Elshamy');
+            INSERT INTO Users (id, name) VALUES (6, 'Amr');
+            INSERT INTO Users (id, name) VALUES (7, 'Mona');
+            INSERT INTO Users (id, name) VALUES (8, 'Manal');
+
+        @Entity(name="Users")
+        @Data
+        public class User {
+            @Id
+            private int id;
+            @Column
+            private String name;
+
+            public User() {
+
+            }
+        }
+
+        @RepositoryRestResource
+        public interface UserRepository extends JpaRepository<User, Integer> {
+
+        }
+
 ### Swagger Documentation Format
 
         <dependency>
