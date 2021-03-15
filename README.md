@@ -262,14 +262,13 @@ DELETE | /api/customers/{customerId} | delete an existing customer
 
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox.swagger2</artifactId>
-            <version>2.4.0</version>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
         </dependency>
-        
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox.swagger-ui</artifactId>
-            <version>2.4.0</version>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
 
