@@ -218,9 +218,19 @@ DELETE | /api/customers/{customerId} | delete an existing customer
 
 ![](https://github.com/shamy1st/spring-rest/blob/main/images/project-creation.png)
 
-### 
+### Swagger Documentation Format
 
-
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox.swagger2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox.swagger-ui</artifactId>
+            <version>2.4.0</version>
+        </dependency>
 
 
 
