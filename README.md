@@ -226,6 +226,8 @@ DELETE | /api/customers/{customerId} | delete an existing customer
             spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
             spring.jpa.show-sql=true
             spring.h2.console.enable=true
+            
+            management.endpoints.web.exposure.exclude=*
 
             spring.data.rest.basePath=/api
             spring.data.rest.default-page-size=3
@@ -270,6 +272,24 @@ DELETE | /api/customers/{customerId} | delete an existing customer
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+
+        @Configuration
+        @EnableSwagger2
+        public class SwaggerConfig {
+
+            @Bean
+            public Docket api() {
+                return new Docket(DocumentationType.SWAGGER_2)
+                    .select()
+                    .apis(RequestHandlerSelectors.any())
+                    .paths(PathSelectors.any())
+                    .build();
+            }
+        }
+
+        http://localhost:8080/v2/api-docs
+        
 
 
 
